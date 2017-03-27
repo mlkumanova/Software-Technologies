@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Selectable Towns</title>
+    <script src="jquery-3.2.0.js"></script>
+    <style>
+        li { display: inline-block; padding: 10px; border-radius: 5px}
+        button {padding: 5px; border-radius: 3px; background-color: darkgray}
+
+    </style>
+</head>
+<body>
+<ul id="items">
+    <li>Sofia</li>
+    <li>Plovdiv</li>
+    <li>Varna</li>
+    <li>Bourgas</li>
+
+</ul><br>
+<button id="showItems">Show Selected Items</button>
+
+<script>
+    $('li').click(function () {
+        let li = $(this);
+        if (! li.attr('data-selected')){
+            li.css('background', '#EEE')
+            li.attr('data-selected', 'true')
+        } else {
+            li.css('background', '')
+            li.removeAttr('data-selected')
+        }
+
+    })
+
+    $('#showItems').click(function () {
+        let selectedTowns = $('li[data-selected = true]')
+        console.log(selectedTowns)
+        let towns = []
+        for (let t of selectedTowns)
+            towns.push(t.innerText)
+        let div = $('<div>')
+        div.text(towns.join(', '))
+        $('body').append(div)
+
+    })
+
+</script>
+
+</body>
+</html>

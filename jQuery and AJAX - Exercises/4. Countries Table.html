@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Countries Table</title>
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+    <style>
+        td, th {
+            background-color: lightsteelblue;
+            border: #3500b6;
+            padding: 5px 10px;
+            border-radius: 2px;
+        }
+
+    </style>
+</head>
+<body>
+<h1> Countries </h1>
+<table id="countriesTable">
+    <tr><th>Country</th><th>Capital</th><th>Action</th></tr>
+
+</table>
+
+<h2> Add New Country</h2>
+<br>
+Country: <input type="text" id="newCountryText"><br><br>
+Capital: <input type="text" id="newCapitalText"><br><br>
+<input type="button" onclick="addCountry()" value="Add Country">
+<script>
+
+    function addCountryToTable(country, capital) {
+        let row = $('<tr>')
+            .append($("<td>").text(country))
+            .append($("<td>").text(capital))
+            .append($("<td>")
+                .append($("<a href='#' onclick='moveRowUp(this)'>[Up]</a>"))
+                .append(" ")
+                .append($("<a href='#' onclick='moveRowDown(this)'>[Down]</a>"))
+                .append(" ")
+                .append($("<a href='#' onclick='deleteRow(this)'>[Delete]</a>"))
+            );
+        $("#countriesTable").append(row);
+        return row;
+    }
+    function fixRowLinks() {
+        //Show all links in the table
+        $('#coutriesTable, a').show();
+
+        //Hide [Up] link in first table row after
+        let tableRows = $('#coutriesTable, tr');
+        $(tableRows[1]).find("a:contains('Up')").hide();
+
+        //Hide the [Down] link in the last table row
+        $(tableRows[tableRows.length-1]).find("a:contains('Down')").hide();
+    }
+
+    function addCountry() {
+
+     let country = $('#newCountryText').val();
+     let capital = $('#newCapitalText').val();
+     addCountryToTable(country, capital);
+    // row.hide();
+    // row.fadeIn();
+     $('#newCountryTextText').val('');
+     $('#newCapitalText').val('');
+     fixRowLinks();
+
+    }
+    //The function takes as input the DOM element holding the [Delete] hyperlink. Its parent is the table cell (<td>).
+    // Its parent is the table row for deleting (<tr>).
+    // It removes the row from the DOM tree.
+    function deleteRow(link) {
+        let row = $(link).parent().parent();
+        row.remove();
+        row.fadeOut(function () {
+            row.insertAfter(row.next());
+            row.remove();
+            fixRowLinks();
+        });
+    }
+
+    function moveRowUp(link) {
+        let row = $(link).parent().parent();
+        row.fadeOut(function () {
+            row.insertBefore(row.prev());
+            row.fadeIn();
+            fixRowLinks();
+        })
+    }
+
+    function moveRowDown(link) {
+        let row = $(link).parent().parent();
+        row.fadeOut(function () {
+            row.insertAfter(row.next());
+            row.fadeIn();
+            fixRowLinks();
+        })
+    }
+
+    $(function() {
+        addCountryToTable("Bulgaria", "Sofia")
+        addCountryToTable("Germany","Berlin")
+        addCountryToTable("Russia", "Moscow")
+        addCountryToTable("India", "Delhi")
+        fixRowLinks();
+    });
+
+
+
+</script>
+
+
+
+</body>
+</html>
