@@ -30,8 +30,33 @@ module.exports = {
             return;
         }
 
+        let image = req.files.image;
+
+        if (image) {
+            let filenameAndExtension = image.name;
+            let filenameExtensionSeparatorIndex = filenameAndExtension.lastIndexOf('.');
+            let filename = filenameAndExtension.substring(0, filenameExtensionSeparatorIndex);
+            let extension = filenameAndExtension.substring(filenameExtensionSeparatorIndex +1);
+
+            let randomChars = require('./../utilities/encryption')
+                .generateSalt()
+                .substring(0,5)
+                .replace(/\//g, x);
+
+            let finalFilename = `${filename}_${randomChars}.${extension}`;
+
+            image.mv(`./public/images/${finalFilename}`, err => {
+               if (err) {
+                   console.log(err.message);
+               }
+            });
+            articleParts.imagePath = `/images/${finalFilename}`;
+
+        }
+
         let userId = req.user.id;
         articleParts.author = userId;
+
 
         Article.create(articleParts).then(article => {
             req.user.articles.push(article.id);
