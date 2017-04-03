@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>submit demo</title>
+    <style>
+
+        p {
+            margin: 0;
+            color: darkslategrey;
+            font-size: large;
+        }
+        div,p {
+            margin-left: 10px;
+        }
+        span {
+            color: crimson;
+            margin-left: 10px;
+            font-size: medium;
+
+        }
+        div {
+            border-radius: 5px;
+            background-color: #d9e1e2;
+            padding: 10px;
+            width: 50%;
+            align-content: center;
+        }
+        input[type=submit] {
+            width: 100%;
+            background-color: lightseagreen;
+            color: white;
+            padding: 10px 10px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type=number], select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+    </style>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+
+<p>Type number between 1 and 7 to validate.</p>
+<div>
+<form action="javascript:alert( 'success!' );">
+    <div>
+        <input type="number" id="num" placeholder="Your number...">
+        <input type="submit">
+    </div>
+</form>
+</div>
+<span></span>
+<span id="res"></span>
+<script>
+
+    $( "form" ).submit(function( event ) {
+        if ( $( "input:first" ).val() >= 1 && $( "input:first" ).val() <= 7 ) {
+            $( "span" ).text( $( "input:first" ).val() ).show();
+         $("#res").text( "Valid Input!" ).show();
+            return;
+        }else{
+
+            $("#res").text( "Not Valid!" ).show().fadeOut(1000);
+        event.preventDefault();}
+    });
+</script>
+
+</body>
+</html>
