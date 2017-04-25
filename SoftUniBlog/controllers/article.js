@@ -4,7 +4,6 @@ function validateArticle(articleArgs, req) {
 
 }
 
-
 module.exports = {
     createGet: (req,res) => {
         res.render('article/create');
@@ -22,6 +21,7 @@ module.exports = {
         } else if (!articleParts.content) {
             errorMsg = 'Content is required!';
         }
+
 
         if (errorMsg) {
             res.render('article/create', {

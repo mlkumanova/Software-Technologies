@@ -6,8 +6,11 @@
     <link rel='stylesheet' href='/stylesheets/morestyle.css' />
     <script src="/javascripts/jquery-1.10.2.js"></script>
     <script src="/javascripts/bootstrap.js"></script>
+    <script src="/javascripts/myfunctions.js"></script>
+
 </head>
 <body>
+<button onclick="topFunction()" id="myBtn" title="Go to top">&#10094;</button>
     <header>
         <div class="jumbotron" style="margin-bottom:0; margin-top: 0 ">
             <div class="jumbotronDiv">
@@ -48,10 +51,12 @@
         <h2>{{error}}</h2>
     {{/if}}
     {{{body}}}
+    <footer>
+        <div class="container modal-footer">
+
+            <p>&copy; 2017 - Software University Foundation</p>
+        </div>
+    </footer>
 </body>
-<footer>
-    <div class="container modal-footer">
-        <p>&copy; 2016 - Software University Foundation</p>
-    </div>
-</footer>
+
 </html>
