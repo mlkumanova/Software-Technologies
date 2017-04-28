@@ -1,42 +1,26 @@
 <div class="container body-content">
-<div class="row">
-
-
-    <div class="col-md-9">
-
+    <div class="row">
         {{#each articles}}
-        <div class="col-md-6">
-            <article>
-                <header>
-                    <h2>{{this.title}}</h2>
-                </header>
+            <div class="col-md-6">
+                <article>
+                    <header>
+                        <h2>{{this.title}}</h2>
+                    </header>
 
-                <p>{{this.content}}
-                </p>
+                    <p>{{this.content}}
+                    </p>
 
-                <small class="author">
-                    {{this.author.fullName}}
-                </small>
+                    <small class="author">
+                        {{this.author.fullName}}
+                    </small>
 
-                <div class="pull-right">
-                    <a class="btn btn-default btn-xs" href="/article/details/{{this.id}}">Read more &raquo;</a>
-                </div>
-            </article>
-        </div>
-    {{/each}}
-    </div>
-    <div class="col-md-3">
-        <div id="sidebar_container">
-            <div class="sidebar">
-                <h3>Useful Links</h3>
-                <ul>
-                    <li><a href="#">First Link</a></li>
-                    <li><a href="#">Another Link</a></li>
-                    <li><a href="#">And Another</a></li>
-                    <li><a href="#">Last One</a></li>
-                </ul>
-            </div></div>
+                    <footer>
+                        <div class="pull-right">
+                            <a class="btn btn-default btn-xs" href="/article/details/{{this.id}}">Read more &raquo;</a>
+                        </div>
+                    </footer>
+                </article>
+            </div>
+        {{/each}}
     </div>
 </div>
-</div>
-

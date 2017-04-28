@@ -4,7 +4,6 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
-const fileUpload = require('express-fileupload');
 
 module.exports = (app, config) => {
     // View engine setup.
@@ -25,9 +24,6 @@ module.exports = (app, config) => {
     app.use(passport.initialize());
     app.use(passport.session());
 
-    //Use express-fileupload to handle multipart form data
-    app.use(fileUpload());
-
     app.use((req, res, next) => {
         if(req.user){
             res.locals.user = req.user;
@@ -39,6 +35,3 @@ module.exports = (app, config) => {
     // This makes the content in the "public" folder accessible for every user.
     app.use(express.static(path.join(config.rootFolder, 'public')));
 };
-
-
-

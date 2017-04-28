@@ -1,5 +1,4 @@
 const User = require('mongoose').model('User');
-const Role = require('mongoose').model('Role');
 const encryption = require('./../utilities/encryption');
 
 module.exports = {
@@ -25,39 +24,26 @@ module.exports = {
                 let salt = encryption.generateSalt();
                 let passwordHash = encryption.hashPassword(registerArgs.password, salt);
 
-                let roles = [];
-                Role.findOne({name: 'User'}).then(role => {
-                    roles.push(role.id);
+                let userObject = {
+                    email: registerArgs.email,
+                    passwordHash: passwordHash,
+                    fullName: registerArgs.fullName,
+                    salt: salt
+                };
 
-                    let userObject = {
-                        email: registerArgs.email,
-                        passwordHash: passwordHash,
-                        fullName: registerArgs.fullName,
-                        salt: salt,
-                        roles: roles
-                    };
+                User.create(userObject).then(user => {
+                    req.logIn(user, (err) => {
+                        if (err) {
+                            registerArgs.error = err.message;
+                            res.render('user/register', registerArgs);
+                            return;
+                        }
 
-                    User.create(userObject).then(user => {
-                        role.users.push(user.id);
-                        role.save(err => {
-                            if (err){
-                                res.render('user/register', {error: err.message})
-
-                            }else {
-                                req.logIn(user, (err) => {
-                                    if (err) {
-                                        registerArgs.error = err.message;
-                                        res.render('user/register', registerArgs);
-                                        return;
-                                    }
-                                    res.redirect('/')
-                                })
-                            }
-                        });
+                        res.redirect('/');
                     })
-                });
+                })
             }
-       0 })
+        })
     },
 
     loginGet: (req, res) => {
@@ -65,7 +51,6 @@ module.exports = {
     },
 
     loginPost: (req, res) => {
-
         let loginArgs = req.body;
         User.findOne({email: loginArgs.email}).then(user => {
             if (!user ||!user.authenticate(loginArgs.password)) {
@@ -77,16 +62,14 @@ module.exports = {
 
             req.logIn(user, (err) => {
                 if (err) {
-                    console.log(err);
-                    res.redirect('/user/login', {error: err.message});
+                    res.render('/user/login', {error: err.message});
                     return;
                 }
 
                 let returnUrl = '/';
-                if (req.session.returnUrl) {
-                    returnUrl = req.session.returUrl;
+                if(req.session.returnUrl) {
+                    returnUrl = req.session.returnUrl;
                     delete req.session.returnUrl;
-
                 }
 
                 res.redirect(returnUrl);
@@ -99,5 +82,3 @@ module.exports = {
         res.redirect('/');
     }
 };
-
-

@@ -1,26 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>SoftUni Blog</title>
+    <title>SoftUni blog</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel='stylesheet' href='/stylesheets/morestyle.css' />
     <script src="/javascripts/jquery-1.10.2.js"></script>
     <script src="/javascripts/bootstrap.js"></script>
-    <script src="/javascripts/myfunctions.js"></script>
 
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <!-- modernizr enables HTML5 elements and feature detects -->
+    <script type="text/javascript" src="js/modernizr-1.5.min.js"></script>
 </head>
 <body>
-<button onclick="topFunction()" id="myBtn" title="Go to top">&#10094;</button>
     <header>
-        <div class="jumbotron" style="margin-bottom:0; margin-top: 0 ">
-            <div class="jumbotronDiv">
-            <h1>SoftUni</h1>
-            </div>
-        </div>
-        <div class="navbar navbar-default text-uppercase" style="margin-top: 0">
+        <div class="navbar navbar-default navbar-fixed-top text-uppercase">
             <div class="container">
                 <div class="navbar-header">
-                    <a href="/" class="navbar-brand">Home</a>
+                    <a href="/" class="navbar-brand">SoftUni Blog</a>
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -37,7 +35,7 @@
                     </div>
                 {{/if}}
                 {{#unless user}}
-                    <div class="navbar-collapse collapse">
+                    <div class="collapse collapse-nav">
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="/user/register">Register</a></li>
                             <li><a href="/user/login">Login</a></li>
@@ -51,12 +49,10 @@
         <h2>{{error}}</h2>
     {{/if}}
     {{{body}}}
-    <footer>
-        <div class="container modal-footer">
-
-            <p>&copy; 2017 - Software University Foundation</p>
-        </div>
-    </footer>
 </body>
-
+<footer>
+    <div class="container modal-footer">
+        <p>&copy; 2016 - Software University Foundation</p>
+    </div>
+</footer>
 </html>
